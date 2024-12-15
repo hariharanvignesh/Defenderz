@@ -1,0 +1,119 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="styles.css"> -->
+        <meta http-equiv="refresh" content="2">
+        <link rel="stylesheet" href="/static/css/styles.css">
+
+
+        <style>
+            body {
+                min-height: 100vh;
+                display: flex;
+            }
+            .sidebar {
+                min-width: 250px;
+                max-width: 250px;
+                background-color: #343a40;
+                color: #fff;
+            }
+            .sidebar a {
+                color: #fff;
+                text-decoration: none;
+                padding: 10px 20px;
+                display: block;
+            }
+            .sidebar a:hover {
+                background-color: #495057;
+            }
+            .content {
+                flex-grow: 1;
+                padding: 20px;
+            }
+            .navbar {
+                background-color: #343a40;
+            }
+            .navbar a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3 class="text-center py-3">Admin Panel</h3>
+            <a href="{{ url_for('type1') }}">Type1</a>
+            <a href="{{ url_for('type2') }}">Type2</a>
+            <!-- <a href="{{ url_for('type3') }}">Type3</a> -->
+            <a href="{{ url_for('type4') }}">Type3</a>
+            <a href="{{ url_for('index') }}">Type4</a>
+            <a href="{{url_for('contact')}}">Contact & Support</a>
+        </div>
+        
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+                <div class="container-fluid">
+                    <span class="navbar-brand">Admin Dashboard</span>
+                    <div class="d-flex">
+                        <a href="#logout" class="btn btn-danger btn-sm">Logout</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Exhibit Details Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Exhibit Details</h2>
+                </div>
+                <div class="card-body">
+                    {% if data %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, value in data.items() %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>No exhibit data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- <div>
+                <table class="list_of_items">
+                    <thead>
+                        <tr>S.No</tr>
+                        <tr>Item Name</tr>
+                        <tr>Status</tr>
+                        
+                    </thead>
+                </table>
+            </div> -->
+            <!-- Additional Sections -->
+            
+            <section id="contact" class="mt-5">
+                <h3>Contact & Support</h3>
+                <p>If you have any issues, please contact support@example.com or call +123-456-7890.</p>
+            </section>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

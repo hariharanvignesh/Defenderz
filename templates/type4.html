@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload and Processing</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the form */
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* File input field styling */
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 18px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="file"]:hover {
+            background-color: #e6e6e6;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #388e3c;
+        }
+
+        /* Video element styling */
+        #video {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Start Webcam button */
+        .start-webcam-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .start-webcam-btn:hover {
+            background-color: #0069d9;
+        }
+
+        .start-webcam-btn:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Upload Video for Defect Detection</h2>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required>
+            <br>
+            <button type="submit">Upload and Process</button>
+        </form>
+    </div>
+
+    <button class="start-webcam-btn" onclick="startWebcam()">Start Webcam</button>
+
+    <!-- Video element to display live webcam feed -->
+    <video id="video" width="640" height="480" autoplay></video>
+
+    <script>
+        function startWebcam() {
+            const videoElement = document.getElementById('video');
+            const mediaStream = navigator.mediaDevices.getUserMedia({ video: true });
+
+            mediaStream.then((stream) => {
+                videoElement.srcObject = stream;
+                videoElement.play();
+                fetch('/start-webcam', { method: 'POST' }); // Send request to start processing
+            }).catch((err) => {
+                console.error("Error accessing webcam: ", err);
+            });
+        }
+    </script>
+
+</body>
+</html>
